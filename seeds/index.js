@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 //const methodOverride = require('method-override');
 const Maker = require('../models/maker');
 const initialSeeds = require('./seeds');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/wineandcheeseapp';
 
-mongoose.connect('mongodb://localhost:27017/wineandcheeseapp', {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
