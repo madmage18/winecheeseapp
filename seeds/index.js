@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 //const methodOverride = require('method-override');
 const Maker = require('../models/maker');
 const initialSeeds = require('./seeds');
+require('dotenv').config();
+// the above used to seed cloud database manually.
 
 const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl, {
