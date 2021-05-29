@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Maker = require('../models/maker');
 const initialSeeds = require('./seeds');
 
-mongoose.connect(DB_URL, {
+const dbUrl = process.env.DB_URL;
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
