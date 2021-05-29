@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 //const methodOverride = require('method-override');
 const Maker = require('../models/maker');
 const initialSeeds = require('./seeds');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/wineandcheeseapp';
 
-mongoose.connect(dbUrl, {
+mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -40,7 +39,7 @@ const seedDB = async () => {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
             products: `${initialSeeds[i].products}`,
             website: `${initialSeeds[i].website}`,
-            submittedBy: '60aedaf0f1724e479cfd248c'
+            submittedBy: '60b2a5082d08ed001501a2f1'
         })
         await make.save();
 
