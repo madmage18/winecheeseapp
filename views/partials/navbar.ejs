@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/stylesheets/nav.css">
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top ">
+    <div class="container-fluid">
+        <b><a class="navbar-brand navH" href="/">Wine and Cheese App</a></b>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="navA nav-link" href="/makers">Our Makers</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="navA nav-link dropdown-toggle" href="/makers" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Makers By Type
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/makers/cheesemakers">Cheese Makers</a></li>
+                        <li><a class="dropdown-item" href="/makers/winemakers">Wine Makers</a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/makers/new">Add Maker</a>
+            <% if(!currentUser) {%>
+                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/register">Register</a>
+                <% } else {%>
+                    <a class="nav-link" href="/logout">Logout</a>
+                    <% } %>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,66 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">        
+        <div class="col-md-6 offset-md-3">            
+                <div class="card-body">
+                <h1 class="text-center">Add Maker</h1>
+                    <form class="validated-form" action="/makers" method="POST" enctype="multipart/form-data"
+                        novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="makername">Name of Maker</label>
+                            <input class="form-control" type="text" id="makername" name="maker[makername]" required>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>                        
+                        <div class="mb-3">
+                            <label class="form-label" for="makertype">Cheese or Wine Maker</label>
+                            <select class="form-select" id="makertype" aria-label="makertype" name="maker[makertype]" required>                                
+                                <option value="cheese maker">cheese maker
+                                </option>
+                                <option value="wine maker" >wine maker</option>
+                                <div class="valid-feedback">Looks good!</div>
+                            </select>
+                        </div>                      
+
+                        <div class="mb-3">
+                            <label class="form-label" for="city">City</label>
+                            <input class="form-control" placeholder="Sunnyside" type="text" id="city" name="maker[city]"
+                                required>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="state">State</label>
+                            <input class="form-control" placeholder="New Jersey" type="text" id="state"
+                                name="maker[state]" required>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="products">Products</label>
+                            <input class="form-control" placeholder="ex) Chocolate Milk, Cheddar Cheese, Havarti..."
+                                type="text" id="products" name="maker[products]" required>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                        <input type="file" name=image id="" multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="description">Description</label>
+                            <textarea class="form-control" type="text" id="description" name="maker[description]"
+                                required></textarea>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="website">Website</label>
+                            <input class="form-control" type="text" id="website" name="maker[website]" required>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>                        
+                        <button class="btn btn-success">Add Maker</button>
+                    </form>                 
+                
+                </div>            
+        </div>
+    </div>
+
+
+
+
+
+    
