@@ -45,8 +45,8 @@
                         <% } %>
     </div>
 
-    <script>
-        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    <script>       
+        const maptilerApiKey = "<%- process.env.MAPTILER_API_KEY %>";
         const makers = { features: <%- JSON.stringify(makers) %>}
     </script>
 

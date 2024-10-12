@@ -30,8 +30,8 @@ const { monitorEventLoopDelay } = require('perf_hooks');
 
 
 const MongoDBStore = require("connect-mongo");
-
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/wineandcheeseapp';
+// process.env.DB_URL || // removed durning testing. Will restore.
+const dbUrl = 'mongodb://localhost:27017/wineandcheeseapp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -89,30 +89,24 @@ app.use(helmet({ contentSecurityPolicy: true }));
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
-    "https://api.tiles.mapbox.com/",
-    "https://api.mapbox.com/",
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net",
     "https://code.jquery.com/jquery-3.5.1.slim.min.js",
     "https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js",
     "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js",
-
+    "https://cdn.maptiler.com/",
 ];
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
     "https://stackpath.bootstrapcdn.com/",
-    "https://api.mapbox.com/",
-    "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
     "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css",
+    "https://cdn.maptiler.com/",
 ];
 const connectSrcUrls = [
-    "https://api.mapbox.com/",
-    "https://a.tiles.mapbox.com/",
-    "https://b.tiles.mapbox.com/",
-    "https://events.mapbox.com/",
+    "https://api.maptiler.com/",,
 ];
 const fontSrcUrls = [];
 app.use(
@@ -128,8 +122,9 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/dceyz9gtp/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://res.cloudinary.com/dceyz9gtp/", 
                 "https://images.unsplash.com/",
+                "https://api.maptiler.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },

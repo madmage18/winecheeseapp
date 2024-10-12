@@ -1,18 +1,18 @@
-// const maker = require('../../models/maker');
+maptilersdk.config.apiKey = maptilerApiKey;
 
-
-mapboxgl.accessToken = mapToken;
-const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+const map = new maptilersdk.Map({
+    container: 'map',
+    style: maptilersdk.MapStyle.BRIGHT,
     center: maker.geometry.coordinates, // starting position [lng, lat]
-    zoom: 6 // starting zoom
+    zoom: 10 // starting zoom
 });
 
-// adding controls to map, top right corner
-map.addControl(new mapboxgl.NavigationControl());
-
-new mapboxgl.Marker()
+new maptilersdk.Marker()
     .setLngLat(maker.geometry.coordinates)
-
+    .setPopup(
+        new maptilersdk.Popup({ offset: 25 })
+            .setHTML(
+                `<h3>${maker.makername}</h3><p>${maker.city}, ${maker.state}</p>`
+            )
+    )
     .addTo(map)

@@ -1,7 +1,6 @@
 const Maker = require('../models/maker');
-const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
+const maptilerClient = require("@maptiler/client");
+maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
@@ -23,14 +22,10 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createMaker = async (req, res, next) => {
-    const geoData = await geocoder.forwardGeocode({
-        query: `${req.body.maker.city}, ${req.body.maker.state}`,
-        limit: 1
-    }).send()
-    // res.redirect(`/makers/${maker.id}`)
-    // if (!req.body.maker) throw new ExpressError('Invalid Campground Data', 500);    
+    // Maptiler Implementation
+    const geoData = await maptilerClient.geocoding.forward(`${req.body.maker.city}, ${req.body.maker.state}`, { limit: 1 });
     const maker = new Maker(req.body.maker);
-    maker.geometry = geoData.body.features[0].geometry;
+    maker.geometry = geoData.features[0].geometry;
     maker.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     maker.submittedBy = req.user._id;
     await maker.save();
@@ -73,6 +68,10 @@ module.exports.updateMaker = async (req, res) => {
     // console.log(req.body); //for verbose logging
 
     const maker = await Maker.findByIdAndUpdate(id, { ...req.body.maker });
+    /// MapTiller Implementation
+    const geoData = await maptilerClient.geocoding.forward(`${req.body.maker.city}, ${req.body.maker.state}`, { limit: 1 });
+    maker.geometry = geoData.features[0].geometry;
+
     const imgs = (req.files.map(f => ({ url: f.path, filename: f.filename })));
     maker.images.push(...imgs);
     // the above logic is to adds images via the edit page
