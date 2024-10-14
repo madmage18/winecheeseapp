@@ -37,7 +37,11 @@
                         <%= maker.city %>, <%= maker.state %>
                     </li>
                     <li class="list-group-item">
-                        <%-maker.makertype%>
+                        <% if(maker.makertype=="cheese maker") {%>
+                            Cheesemaker
+                        <%} else { %>
+                         Winemaker
+                        <% } %>   
                     </li>
                     <li class="list-group-item">
                         Products: <%= maker.products%>
@@ -46,7 +50,7 @@
                 <div class="card-body">
                     <a class="sButton btn btn-success" href="/makers" class="card-link">Back to Our Makers</a>
 
-                    <a class="sButton btn btn-info" style="color:white;" href="<%=maker.website%>"
+                    <a class="sButton btn btn-info" style="color:white;" target="_blank" href="<%=maker.website%>"
                         class="card-link">Visit <%=maker.makername%>'s website</a>
                 </div>
             </div>

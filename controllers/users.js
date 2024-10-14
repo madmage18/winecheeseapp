@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const passport = require('passport');
 
 module.exports.formToRegister = (req, res) => {
     res.render('users/register');
@@ -7,16 +6,17 @@ module.exports.formToRegister = (req, res) => {
 
 module.exports.submitFormToRegister = async (req, res) => {
     try {
-        // res.send(req.body) //to check the route... verbose logging. 
         const { email, username, password } = req.body;
+        // create new User using model
         const user = new User({ email, username });
         const registeredUser = await User.register(user, password);
+        
         req.login(registeredUser, err => {
             if (err) return next(err);
+            // login newly registered user
             req.flash('success', `Your're all set! Welcome to the Wine and Cheese App ${user.username}!`);
             res.redirect('/makers');
         })
-        // console.log(registeredUser);
 
     } catch (e) {
         req.flash('error', e.message);
@@ -30,13 +30,17 @@ module.exports.toFormToLogin = (req, res) => {
 
 module.exports.submitFormToLogin = (req, res) => {
     req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || '/makers';
-    delete req.session.returnTo;
+    const redirectUrl = res.locals.returnTo || '/makers';
     res.redirect(redirectUrl);
 }
 
 module.exports.toLogout = (req, res) => {
-    req.logout();
-    req.flash('thankyou', "Goodbye. You are now logged out.")
-    res.redirect('/makers')
+    // passport update requires passing in a callback fn to req.logout() method
+    req.logout((err) => {
+        if (err) {
+            return next(err)
+        }
+        req.flash('thankyou', "Goodbye. You are now logged out.");
+        res.redirect('/makers')
+    });
 }

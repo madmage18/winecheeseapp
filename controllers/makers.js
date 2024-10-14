@@ -2,6 +2,9 @@ const Maker = require('../models/maker');
 const maptilerClient = require("@maptiler/client");
 maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 const { cloudinary } = require("../cloudinary");
+const UsaStates = require('usa-states').UsaStates;
+const usStates = new UsaStates().states;
+
 
 module.exports.index = async (req, res) => {
     const makers = await Maker.find({});
@@ -18,7 +21,8 @@ module.exports.winemakerindex = async (req, res) => {
     res.render('makers/winemakerindex', { makers })
 }
 module.exports.renderNewForm = (req, res) => {
-    res.render('makers/new');
+    // pass in template and the states array to the template
+    res.render('makers/new', {states: usStates});
 }
 
 module.exports.createMaker = async (req, res, next) => {

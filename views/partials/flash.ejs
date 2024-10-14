@@ -1,8 +1,9 @@
 <div>
     <% if(success && success.length) {%>
-        <div class="alert alert-success " role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <%= success %>
-
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">                
+            </button>
         </div>
         <% } %>
 </div>
@@ -10,9 +11,10 @@
 <div>
     <% if(updated && updated.length) {%>
 
-        <div class="alert alert-primary " role="alert">
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <%= updated %>
-
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">                
+            </button>
         </div>
         <% } %>
 </div>
@@ -20,18 +22,20 @@
 <div>
     <% if(thankyou && thankyou.length) {%>
 
-        <div class="alert alert-info " role="alert">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
             <%= thankyou %>
-
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">                
+            </button>
         </div>
         <% } %>
 </div>
 <!-- thankyou alert for deleted revews -->
 <div>
     <% if(deleted && deleted.length) {%>
-        <div class="alert alert-danger " role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <%= deleted %>
-
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">                
+            </button>
         </div>
         <% } %>
 </div>
@@ -39,9 +43,10 @@
 <div>
     <% if(error && error.length) {%>
 
-        <div class="alert alert-danger " role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <%= error %>
-
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">                
+            </button>
         </div>
         <% } %>
 </div>

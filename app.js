@@ -9,8 +9,6 @@ const engine = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-const { makerSchema, reviewSchema } = require('./schemas.js');
-const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const passport = require('passport');
@@ -20,17 +18,13 @@ const helmet = require("helmet");
 
 const mongoSanitize = require('express-mongo-sanitize');
 
-const Maker = require('./models/maker');
-const Review = require('./models/reviews');
-
 const usersRoutes = require('./routes/users');
 const makersRoutes = require('./routes/makers');
 const reviewsRoutes = require('./routes/reviews');
-const { monitorEventLoopDelay } = require('perf_hooks');
 
 
 const MongoDBStore = require("connect-mongo");
-// process.env.DB_URL || // removed durning testing. Will restore.
+// process.env.DB_URL || // removed during local testing. Will restore.
 const dbUrl = 'mongodb://localhost:27017/wineandcheeseapp';
 
 mongoose.connect(dbUrl, {
@@ -79,7 +73,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: true,
+        // secure: true, // removed during local testing. Will restore.
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -134,9 +128,9 @@ app.use(
 app.use(flash());
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session());// for persistent login session
 passport.use(new LocalStrategy(User.authenticate()));
-
+// store and remove from store
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -144,10 +138,6 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
 
 
-    if (!['/login', '/'].includes(req.originalUrl)) {
-        // does not redirect from home or login page
-        req.session.returnTo = req.originalUrl;
-    }
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.thankyou = req.flash('thankyou');
