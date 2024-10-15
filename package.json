@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "20.15.1"
+  },
   "name": "winecheeseapp",
   "version": "1.0.0",
   "description": "",
