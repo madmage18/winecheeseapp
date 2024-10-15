@@ -11,31 +11,42 @@
                             <div class="valid-feedback">Looks good!</div>
                         </div>                        
                         <div class="mb-3">
-                            <label class="form-label" for="makertype">Cheese or Wine Maker</label>
+                            <label class="form-label" for="makertype">Cheese or Winemaker</label>
                             <select class="form-select" id="makertype" aria-label="makertype" name="maker[makertype]" required>                                
-                                <option value="cheese maker">cheese maker
+                                <option value="cheese maker">Cheesemaker
                                 </option>
-                                <option value="wine maker" >wine maker</option>
+                                <option value="wine maker" >Winemaker</option>
                                 <div class="valid-feedback">Looks good!</div>
                             </select>
-                        </div>                      
-
-                        <div class="mb-3">
-                            <label class="form-label" for="city">City</label>
-                            <input class="form-control" placeholder="Sunnyside" type="text" id="city" name="maker[city]"
-                                required>
-                            <div class="valid-feedback">Looks good!</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="state">State</label>
-                            <input class="form-control" placeholder="New Jersey" type="text" id="state"
-                                name="maker[state]" required>
+                            <label class="form-label" for="city">City</label>
+                            <input class="form-control" type="text" id="city" name="maker[city]" aria-describedby="cityHelpBlock"
+                                required>
+                                <div id="cityHelpBlock" class="form-text">
+                                    Enter maker's location city. E.g.) Woodinville
+                                </div>    
                             <div class="valid-feedback">Looks good!</div>
+                        </div>                        
+                        <div class="mb-3">
+                            <label class="form-label" for="state">State</label>                            
+                            <select class="form-select" id="state" name="maker[state]" aria-describedby="stateHelpBlock" required>
+                                <% states.forEach(state => { %>
+                                    <option value="<%= state.name %>"><%= state.name %></option>
+                                <% }) %>
+                                <div id="stateHelpBlock" class="form-text">
+                                    Select maker's location state. E.g.) Washington
+                                </div>
+                                <div class="valid-feedback">Looks good!</div>
+                            </select> 
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="products">Products</label>
-                            <input class="form-control" placeholder="ex) Chocolate Milk, Cheddar Cheese, Havarti..."
-                                type="text" id="products" name="maker[products]" required>
+                            <input class="form-control" 
+                                type="text" id="products" name="maker[products]" aria-describedby="productsHelpBlock" required>
+                            <div id="productsHelpBlock" class="form-text">
+                                Provide info on maker's products. E.g.) Chocolate Milk, Cheddar Cheese, Havarti...
+                            </div>
                             <div class="valid-feedback">Looks good!</div>
                         </div>
                         <div class="mb-3">
@@ -44,12 +55,18 @@
                         <div class="mb-3">
                             <label class="form-label" for="description">Description</label>
                             <textarea class="form-control" type="text" id="description" name="maker[description]"
-                                required></textarea>
+                            aria-describedby="descriptionHelpBlock" required></textarea>
+                            <div id="descriptionHelpBlock" class="form-text">
+                                Provide a description. E.g.) Raw goat milk and cheddar producer in the Greater Seattle Area.
+                            </div>
                             <div class="valid-feedback">Looks good!</div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="website">Website</label>
-                            <input class="form-control" type="text" id="website" name="maker[website]" required>
+                            <input class="form-control" type="text" id="website" name="maker[website]" aria-describedby="websiteHelpBlock"required>
+                            <div id="websiteHelpBlock" class="form-text">
+                                Provide URL to maker website. E.g.) Raw goat milk and cheddar producer in the Greater Seattle Area.
+                            </div>
                             <div class="valid-feedback">Looks good!</div>
                         </div>                        
                         <button class="btn btn-success">Add Maker</button>

@@ -3,11 +3,9 @@ const ExpressError = require('./utils/ExpressError');
 const Maker = require('./models/maker');
 const Review = require('./models/reviews');
 
-module.exports.isLoggedIn = (req, res, next) => {
-    console.log("REQ.USER...", req.user);
-    if (!req.isAuthenticated()) {
-        // return to functionality moved to app.use is app.js
-
+module.exports.isLoggedIn = (req, res, next) => { 
+    if (!req.isAuthenticated()) {        
+        req.session.returnTo = req.originalUrl;        
         req.flash('error', 'You must be signed in first.');
         return res.redirect('/login');
     }
@@ -53,4 +51,13 @@ module.exports.validateReview = (req, res, next) => {
     } else {
         next();
     }
+}
+
+// save the returnTo value from the session (req.session.returnTo) to res.locals so its accessible for redirect after login. 
+// Required as passport.js now clears session after successful login.
+module.exports.storeReturnTo = (req, res, next) => {
+    if (req.session.returnTo) {
+        res.locals.returnTo = req.session.returnTo;
+    }    
+    next();
 }
