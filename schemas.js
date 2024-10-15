@@ -7,7 +7,7 @@ const extension = (joi) => ({
     type: 'string',
     base: joi.string(),
     messages: {
-        'string.escapeHTML': 'You cannot include HTML in the Add Maker form. Please try again.'
+        'string.escapeHTML': 'You cannot include HTML in The Wine and Cheese App forms. Please try again!'
     },
     rules: {
         escapeHTML: {
