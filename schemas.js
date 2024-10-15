@@ -1,7 +1,5 @@
 const BaseJoi = require('joi');
-const { JSDOM } = require('jsdom');
-const DOMPurify = require('dompurify')(new JSDOM('').window);
-// const { number } = require('joi');
+const xssClean = require('xss-clean');
 
 // below defined extension, method to use on client available text fields to sanitize html
 const extension = (joi) => ({
@@ -13,9 +11,9 @@ const extension = (joi) => ({
     rules: {
         escapeHTML: {
             validate(value, helpers) {
-                const clean = DOMPurify.sanitize(value, {
-                    ALLOWED_TAGS: [],
-                    ALLOWED_ATTR: {}
+                const clean = xssClean(value, {
+                    whiteList: [],
+                    stripDisallowed: true
                 });
                 if (clean !== value) return helpers.error('string.escapeHTML')
                 return clean;
