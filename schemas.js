@@ -7,7 +7,7 @@ const extension = (joi) => ({
     type: 'string',
     base: joi.string(),
     messages: {
-        'string.escapeHTML': '{{#label}} must not include HTML!'
+        'string.escapeHTML': 'You cannot include HTML in the Add Maker form. Please try again.'
     },
     rules: {
         escapeHTML: {
