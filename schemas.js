@@ -11,12 +11,17 @@ const extension = (joi) => ({
     rules: {
         escapeHTML: {
             validate(value, helpers) {
-                const clean = xssClean(value, {
-                    whiteList: [],
-                    stripDisallowed: true
-                });
-                if (clean !== value) return helpers.error('string.escapeHTML')
-                return clean;
+                if (typeof window !== 'undefined') {
+                    const clean = DOMPurifyInstance.sanitize(value, {
+                        ALLOWED_TAGS: [],
+                        ALLOWED_ATTR: {}
+                    });
+                    if (clean !== value) return helpers.error('string.escapeHTML', { value });
+                    return clean;
+                } else {
+                    // Handle server-side logic
+                    return value;
+                }
             }
         }
     }
