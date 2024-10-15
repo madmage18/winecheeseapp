@@ -52,7 +52,6 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }));
 
-// process.env.SECRET will be configured with Heroku
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
 const store = MongoStore.create({
