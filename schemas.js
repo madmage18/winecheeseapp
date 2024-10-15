@@ -1,5 +1,6 @@
 const BaseJoi = require('joi');
-const sanitizeHtml = require('sanitize-html');
+const { JSDOM } = require('jsdom');
+const DOMPurify = require('dompurify')(new JSDOM('').window);
 // const { number } = require('joi');
 
 // below defined extension, method to use on client available text fields to sanitize html
@@ -7,16 +8,16 @@ const extension = (joi) => ({
     type: 'string',
     base: joi.string(),
     messages: {
-        'string.escapeHTML': '{{#label}} must not include HTML!'
+        'string.escapeHTML': 'Apologies! You cannot include HTML in the Add Maker form. Please try again.'
     },
     rules: {
         escapeHTML: {
             validate(value, helpers) {
-                const clean = sanitizeHtml(value, {
-                    allowedTags: [],
-                    allowedAttributes: {},
+                const clean = DOMPurify.sanitize(value, {
+                    ALLOWED_TAGS: [],
+                    ALLOWED_ATTR: {}
                 });
-                if (clean !== value) return helpers.error('string.escapeHTML', { value })
+                if (clean !== value) return helpers.error('string.escapeHTML')
                 return clean;
             }
         }
