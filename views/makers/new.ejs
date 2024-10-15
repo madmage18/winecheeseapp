@@ -18,8 +18,7 @@
                                 <option value="wine maker" >Winemaker</option>
                                 <div class="valid-feedback">Looks good!</div>
                             </select>
-                        </div>                      
-
+                        </div>
                         <div class="mb-3">
                             <label class="form-label" for="city">City</label>
                             <input class="form-control" type="text" id="city" name="maker[city]" aria-describedby="cityHelpBlock"
@@ -28,18 +27,18 @@
                                     Enter maker's location city. E.g.) Woodinville
                                 </div>    
                             <div class="valid-feedback">Looks good!</div>
-                        </div>
+                        </div>                        
                         <div class="mb-3">
-                            <label class="form-label" for="state">State</label>                          
-                                <select class="form-select" name="state" id="state" name="maker[state]" aria-label="statetype" aria-describedby="stateHelpBlock"required>
-                                    <% states.forEach(state => { %>
-                                        <option value="<%= state.abbreviation %>"><%= state.name %></option>
-                                    <% }) %>
-                                </select> 
+                            <label class="form-label" for="state">State</label>                            
+                            <select class="form-select" id="state" name="maker[state]" aria-describedby="stateHelpBlock" required>
+                                <% states.forEach(state => { %>
+                                    <option value="<%= state.name %>"><%= state.name %></option>
+                                <% }) %>
                                 <div id="stateHelpBlock" class="form-text">
                                     Select maker's location state. E.g.) Washington
-                                </div>                                    
-                            <div class="valid-feedback">Looks good!</div>
+                                </div>
+                                <div class="valid-feedback">Looks good!</div>
+                            </select> 
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="products">Products</label>

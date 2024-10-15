@@ -23,9 +23,8 @@ const makersRoutes = require('./routes/makers');
 const reviewsRoutes = require('./routes/reviews');
 
 
-const MongoDBStore = require("connect-mongo");
-// process.env.DB_URL || // removed during local testing. Will restore.
-const dbUrl = 'mongodb://localhost:27017/wineandcheeseapp';
+ const MongoStore = require('connect-mongo');
+const dbUrl = process.env.DB_URL ||'mongodb://localhost:27017/wineandcheeseapp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -55,10 +54,13 @@ app.use(mongoSanitize({
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
-const store = new MongoDBStore({
+const store = MongoStore.create({
+    // using same database 
     mongoUrl: dbUrl,
-    secret,
-    touchAfter: 24 * 60 * 60
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
 });
 
 store.on("error", function (e) {
@@ -67,13 +69,14 @@ store.on("error", function (e) {
 
 const sessionConfig = {
     store,
+    // name is name of the new collection added automatically
     name: 'session',
     secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true, // removed during local testing. Will restore.
+        // secure: true, 
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
