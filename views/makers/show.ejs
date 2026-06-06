@@ -70,7 +70,7 @@
         </div>
 
         <div class="col-6">
-            <div id='map'></div>
+            <div id="map" style="width: 100%; height: 300px;"></div>
             <% if(currentUser) {%>
                 <h2>Leave a Review</h2>
                 <form action="/makers/<%=maker._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -124,12 +124,9 @@
                         <% } %>
         </div>
     </div>
-    <script>        
-        const maptilerApiKey = "<%- process.env.MAPTILER_API_KEY %>";        
-    </script>
-
-    <script>        
-        const maker = <%- JSON.stringify(maker) %>
+    <script>
+        const maptilerApiKey = "<%- process.env.MAPTILER_API_KEY %>";
+        const makers = { features: <%- JSON.stringify(makers) %>}
     </script>
 
     <script src="/javascripts/showPageMap.js"></script>

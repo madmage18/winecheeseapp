@@ -34,7 +34,7 @@ module.exports.makerSchema = Joi.object({
         products: Joi.string().required().escapeHTML(),
         //image: Joi.string().required(),
         description: Joi.string().required().escapeHTML(),
-        website: Joi.string().required()
+        website: Joi.string().required().escapeHTML()
         // submittedBy: Joi.string().required()
     }).required(),
     deleteImages: Joi.array()

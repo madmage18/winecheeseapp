@@ -28,12 +28,14 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createMaker = async (req, res, next) => {
     // Maptiler Implementation
     const geoData = await maptilerClient.geocoding.forward(`${req.body.maker.city}, ${req.body.maker.state}`, { limit: 1 });
+    if(!geoData.features?.length){req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+        return res.redirect('/makers/new');}
+
     const maker = new Maker(req.body.maker);
     maker.geometry = geoData.features[0].geometry;
     maker.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     maker.submittedBy = req.user._id;
     await maker.save();
-    // console.log(maker);
     req.flash('success', `Success! Check-out ${maker.makername}!`);
 
     res.redirect(`/makers/${maker._id}`)
@@ -47,7 +49,6 @@ module.exports.showMaker = async (req, res) => {
         }
     }).populate('submittedBy');
     // the above populates the entire review. If storing huge number of reviews will need to change how the data is stored and populated.
-    // console.log(maker); <-For verbose logging
     if (!maker) {
         req.flash('error', 'Apologies! We cannot find that maker! See some of our other makers.');
         return res.redirect('/makers');
@@ -69,12 +70,19 @@ module.exports.renderEdit = async (req, res) => {
 module.exports.updateMaker = async (req, res) => {
 
     const { id } = req.params;
-    // console.log(req.body); //for verbose logging
+     //console.log(req.body); 
+     //for verbose logging
 
     const maker = await Maker.findByIdAndUpdate(id, { ...req.body.maker });
-    /// MapTiller Implementation
+    /// MapTiler Implementation
     const geoData = await maptilerClient.geocoding.forward(`${req.body.maker.city}, ${req.body.maker.state}`, { limit: 1 });
+    if (!geoData.features?.length) {
+        req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+        return res.redirect(`/makers/${id}/edit`);
+    }
     maker.geometry = geoData.features[0].geometry;
+  
+    
 
     const imgs = (req.files.map(f => ({ url: f.path, filename: f.filename })));
     maker.images.push(...imgs);
