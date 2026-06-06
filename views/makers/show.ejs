@@ -124,9 +124,9 @@
                         <% } %>
         </div>
     </div>
-    <script>
-        const maptilerApiKey = "<%- process.env.MAPTILER_API_KEY %>";
-        const makers = { features: <%- JSON.stringify(makers) %>}
-    </script>
+    <%-"<script>"%>
+        const maptilerApiKey = '<%- process.env.MAPTILER_API_KEY %>';  
+        const maker = <%- JSON.stringify(maker) %>
+    <%-"</script>"%>
 
     <script src="/javascripts/showPageMap.js"></script>
