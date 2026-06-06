@@ -103,13 +103,16 @@ const styleSrcUrls = [
     "https://cdn.maptiler.com/",
 ];
 const connectSrcUrls = [
-    "https://api.maptiler.com/",,
+    "https://api.maptiler.com/",
+    "https://cdn.jsdelivr.net",
+    "https://cdn.maptiler.com/",
 ];
 const fontSrcUrls = [];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: [],
+            defaultSrc: ["'self'"],
+            manifestSrc: ["'self'"],
             connectSrc: ["'self'", ...connectSrcUrls],
             scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
             styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
