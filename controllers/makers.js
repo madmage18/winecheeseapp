@@ -49,7 +49,6 @@ module.exports.showMaker = async (req, res) => {
         }
     }).populate('submittedBy');
     // the above populates the entire review. If storing huge number of reviews will need to change how the data is stored and populated.
-    // console.log(maker); <-For verbose logging
     if (!maker) {
         req.flash('error', 'Apologies! We cannot find that maker! See some of our other makers.');
         return res.redirect('/makers');
@@ -82,8 +81,7 @@ module.exports.updateMaker = async (req, res) => {
         return res.redirect(`/makers/${id}/edit`);
     }
     maker.geometry = geoData.features[0].geometry;
-    // maker.location = geoData.features[0].place_name;
-    
+  
     
 
     const imgs = (req.files.map(f => ({ url: f.path, filename: f.filename })));
